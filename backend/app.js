@@ -23,13 +23,14 @@ app.post("/login", (req, res) => {
     console.log(credentials);
     
     if(credentials != undefined){
-        res.status(200).json({
-            message: "Hello Login from app.js"
-        });
+        var variable = db.isAuthenticated(credentials.token);
+        console.log(variable);
+        res.redirect("/");
     }
     else{
 
     }
 });
+
 
 module.exports = app;

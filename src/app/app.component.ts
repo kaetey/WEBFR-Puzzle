@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'WEBFR-Puzzle';
+  loggedIn = false; 
+  logout = '<a href="/logout" mat-button>Logout</a>';
+  login = '<a href="/login" mat-button>Login</a>'+
+          '<a href="/signup" mat-button>Sign Up</a>';
 }
