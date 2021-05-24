@@ -1,9 +1,13 @@
 <header>
-  <p>
-    <mat-toolbar>
-      <span>My Application</span>
-      <a href="/signup">Register</a><br>
+  <nav>
+    <mat-toolbar color="primary">
+      <span><img src="../img/puzzle_logo.png" width="35" height="35" alt="Puzzle"></span>
+      <span class="example-spacer"></span>
+      <a href="/highscore" mat-button>High-Score-Board</a>
+      <a href="/faq" mat-button>FAQ</a>
+      <a href="/login" mat-button>Login</a>
+      <a href="/signup" mat-button>Sign Up</a>
     </mat-toolbar>
-  </p>
+  </nav>
 </header>
 <router-outlet></router-outlet>
