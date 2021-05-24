@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,19 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   loginTitle:string = "Login für FHTW Puzzle Game";
   hide = true;
+  httpOptions = { headers: new HttpHeaders({ "Content-Type" : "application/json" }) };
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
-  submit(loginData:any): any {
-    var email = loginData.form.value.email;
-    var password = loginData.form.value.password;
-    if(loginData.form.status == "INVALID")console.log("Login failed.");
-    else if(loginData.form.status == "VALID"){
-      console.log("Login successful");
-      console.log("Username: " + email + ", Passwort: "+ password);
-    }
+  submit(loginData: NgForm): any {
+    var email = loginData.value.email;
+    var password = loginData.value.password;
+    this.http.post("http://localhost:3000/login", {email: email, password: password}, this.httpOptions)
+    .subscribe((responseData) => { console.log(responseData); });
   }
 }
