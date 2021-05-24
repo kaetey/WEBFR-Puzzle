@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   }
 
   submit(loginData: NgForm): any {
-    var email = loginData.value.email;
-    var password = loginData.value.password;
-    this.http.post("http://localhost:3000/login", {email: email, password: password}, this.httpOptions)
+    this.http.post("http://localhost:3000/login", {
+      email: loginData.value.email,
+      password: loginData.value.password}, this.httpOptions)
     .subscribe((responseData) => { console.log(responseData); });
   }
 }

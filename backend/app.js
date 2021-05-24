@@ -1,6 +1,7 @@
 var express = require('express');
 
 var app = express();
+const db = require("./db");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -14,14 +15,21 @@ app.use((req, res, next) => {
 });
 
 app.post("/login", (req, res) => {
-    const {email, password} = JSON.stringify(req.body);
-    console.log(email, password);
+    const {email, password} = req.body;
+    console.log(email);
+    console.log(password);
     
+    let credentials = db.login(email, password);
+    console.log(credentials);
     
+    if(credentials != undefined){
+        res.status(200).json({
+            message: "Hello Login from app.js"
+        });
+    }
+    else{
 
-    res.status(200).json({
-        message: "Hello Login from app.js"
-    });
+    }
 });
 
 module.exports = app;
