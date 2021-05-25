@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaqComponent } from './faq/faq.component';
 import { HighscoreComponent } from './highscore/highscore.component';
+import { PuzzleComponent } from './puzzle/puzzle.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HighscoreComponent } from './highscore/highscore.component';
     LoginComponent,
     SignupComponent,
     FaqComponent,
-    HighscoreComponent
+    HighscoreComponent,
+    PuzzleComponent
   ],
   imports: [
     BrowserModule,
