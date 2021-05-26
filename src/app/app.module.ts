@@ -6,6 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component'; 
+import { FaqComponent } from './faq/faq.component';
+import { HighscoreComponent } from './highscore/highscore.component';
+import { PuzzleComponent } from './puzzle/puzzle.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,9 +19,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FaqComponent } from './faq/faq.component';
-import { HighscoreComponent } from './highscore/highscore.component';
-import { PuzzleComponent } from './puzzle/puzzle.component';
+import {MatGridListModule} from '@angular/material/grid-list'; 
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PuzzleComponent } from './puzzle/puzzle.component';
     MatIconModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

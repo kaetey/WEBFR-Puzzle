@@ -1,1 +1,0 @@
-/* checks if a user visiting the site is already logged in*/

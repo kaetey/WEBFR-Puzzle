@@ -6,9 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'WEBFR-Puzzle';
+  gameTitle = 'FHTW PUZZLE GAME';
   loggedIn = false; 
   logout = '<a href="/logout" mat-button>Logout</a>';
   login = '<a href="/login" mat-button>Login</a>'+
           '<a href="/signup" mat-button>Sign Up</a>';
+  
 }

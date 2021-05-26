@@ -23,12 +23,15 @@ app.post("/login", (req, res) => {
     console.log(credentials);
     
     if(credentials != undefined){
-        var variable = db.isAuthenticated(credentials.token);
-        console.log(variable);
-        res.redirect("/");
+        res.status(200).json({
+            message: "Willkommen zurück "+email,
+            token: credentials.token
+        });
     }
     else{
-
+        res.status(404).json({
+            error: "Der Username oder das Passwort ist falsch!"
+        });
     }
 });
 
