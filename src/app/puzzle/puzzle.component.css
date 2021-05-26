@@ -3,6 +3,11 @@ mat-grid-list{
     margin: auto;
 }
 
+mat-grid-tile{
+    margin: 0;
+    padding: 0;
+}
+
 section{
     text-align: center;
 }

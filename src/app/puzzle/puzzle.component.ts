@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-interface Image{
+interface Tile{
   id: string,
-  src: string
+  src: string,
+  alt: string
+  style: {opacity: string}
 }
 
 @Component({
@@ -12,9 +15,11 @@ interface Image{
 })
 export class PuzzleComponent implements OnInit {
   gameTitle = "FHTW PUZZLE GAME";
-  images:Image[] = [];
+  currUrl = this.router.url;
+  puzzle = this.currUrl.charAt(this.currUrl.length-1);
+  tiles:Tile[] = [];
 
-  constructor() { }
+  constructor(private router: Router,) { }
 
   ngOnInit(): void {
     //shuffle the parts
@@ -22,30 +27,42 @@ export class PuzzleComponent implements OnInit {
 
     //add pictures for random puzzle
     for (let i = 0; i < puzzlePartsIdx.length; i++) {
-      this.images.push({id: "part" + puzzlePartsIdx[i], src: "../../res/puzzle1_imgs/img" + puzzlePartsIdx[i] + ".jpg"});
+      this.tiles.push({
+        id: "part" + puzzlePartsIdx[i], 
+        src: "../assets/puzzle"+this.puzzle+"_imgs/img"+puzzlePartsIdx[i]+".jpg", 
+        alt: "part" + puzzlePartsIdx[i],
+        style: {opacity: "1.0"}
+      });
     }
   }
 
   chooseTile(id: string){
-    const imgElement = document.getElementById(currentImgId)!;
-    if (!isSolved()) {
-      if (isSelectable()) {
+    const currentTile:Tile = this.getTile(id);
+    if (!this.isSolved()) {
+      if (this.isSelectable()) {
         
-        const firstSelectedPuzzlePartId = getAlreadySelectedPicId();
+        const firstSelectedPuzzlePartId = this.getAlreadySelectedTileId();
 
         //set opacity for clicked element
-        imgElement.style.opacity = "1.0";
-        if (imgElement.style.opacity != "0.6") {
-          imgElement.style.opacity = "0.6";
+        if (currentTile.style.opacity != "0.6") {
+          currentTile.style.opacity = "0.6";
         }
 
         //swap parts, when more than 1 part is selected
-        if (countSelected() > 1) {
-          if (areNeighbours(firstSelectedPuzzlePartId, currentImgId)) {
-            swapParts();
+        if (this.countSelected() > 1) {
+          if (this.areNeighbours(firstSelectedPuzzlePartId, id)) {
+            this.swapTiles();
           }
-          resetOpacity();
+          this.resetOpacity();
         }
+      }
+    }
+  }
+
+  getTile(id: string): Tile{
+    for(let i = 0; i < this.tiles.length; i++){
+      if(this.tiles[i].id == id){
+        return this.tiles[i];
       }
     }
   }
@@ -63,17 +80,16 @@ export class PuzzleComponent implements OnInit {
     return puzzleParts;
   }
 
-  function isSelectable() {
-    return countSelected() <= 1;
+  isSelectable() {
+    return this.countSelected() <= 1;
   }
 
-  function countSelected() {
-    const pics = riddle.getElementsByTagName("img");
+  countSelected() {
     let counter = 0;
     
     // count selected elements
-    for (let i = 0; i < pics.length; i++) {
-      if (pics[i].style.opacity == "0.6") {
+    for (let i = 0; i < this.tiles.length; i++) {
+      if (this.tiles[i].style.opacity == "0.6") {
         counter++;
       }
     }
@@ -81,29 +97,27 @@ export class PuzzleComponent implements OnInit {
     return counter;
   }
   
-  function getAlreadySelectedPicId() {
-    const pics = riddle.getElementsByTagName("img");
+  getAlreadySelectedTileId() {
     let counter = 0;
     
     // find selected element
-    for (let i = 0; i < pics.length; i++) {
-      if (pics[i].style.opacity == "0.6") {
-        return pics[i].getAttribute("id")!;
+    for (let i = 0; i < this.tiles.length; i++) {
+      if (this.tiles[i].style.opacity == "0.6") {
+        return this.tiles[i].id!;
       }
     }
     
     return "";
   }
   
-  function isSolved() {
-    const pics = riddle.getElementsByTagName("img");
+  isSolved() {
     
     //check if the parts are sorted
-    for (let i = 0; i < pics.length; i++) {
-      const pic = "part" + (i + 1).toString();
-      const element = pics[i].getAttribute("id");
+    for (let i = 0; i < this.tiles.length; i++) {
+      const tile = "part" + (i + 1).toString();
+      const imgElement = this.tiles[i].id;
       
-      if (pic != element) {
+      if (tile != imgElement) {
         return false;
       }
     }
@@ -111,14 +125,13 @@ export class PuzzleComponent implements OnInit {
     return true;
   }
   
-  function areNeighbours(firstPicId: string, secondPicId: string) {
-    const pics = riddle.getElementsByTagName("img");
+  areNeighbours(firstTileId: string, secondTileId: string) {
     
-    for (let i = 0; i < pics.length; i++) {
-      if (pics[i].getAttribute("id") == firstPicId) {
-        const neighbourIdxs = getNeighbourIdxs(i);
+    for (let i = 0; i < this.tiles.length; i++) {
+      if (this.tiles[i].id == firstTileId) {
+        const neighbourIdxs = this.getNeighbourIdxs(i);
         for (let j = 0; j < neighbourIdxs.length; j++) {
-          if (pics[neighbourIdxs[j]].getAttribute("id") == secondPicId) {
+          if (this.tiles[neighbourIdxs[j]].id == secondTileId) {
             return true;
           }
         }
@@ -127,44 +140,43 @@ export class PuzzleComponent implements OnInit {
     return false;
   }
   
-  function swapParts() {
-    const pics = riddle.getElementsByTagName("img");
-    let pic1 = null;
+  swapTiles() {
+    let tile1 = null;
     
-    // loop through parts
-    for (let i = 0; i < pics.length; i++) {
-      if (pics[i].style.opacity == "0.6") {
-        if (pic1 == null) {
-          pic1 = document.getElementById(pics[i].getAttribute("id")!);
+    // loop through tiles
+    for (let i = 0; i < this.tiles.length; i++) {
+      if (this.tiles[i].style.opacity == "0.6") {
+        if (tile1 == null) {
+          tile1 = this.tiles[i]!;
           continue;
         }
         
-        let pic2 = document.getElementById(pics[i].getAttribute("id")!)!;
+        let tile2 = this.tiles[i]!;
         
         //swap pictures (swap their properties)
-        const pic1Source = pic1.getAttribute("src")!;
-        const pic1Alt = pic1.getAttribute("alt")!;
-        const pic1Id = pic1.getAttribute("id")!;
+        const tile1Source = tile1.src!;
+        const tile1Alt = tile1.alt!;
+        const tile1Id = tile1.id!;
   
-        const pic2Source = pic2.getAttribute("src")!;
-        const pic2Alt = pic2.getAttribute("alt")!;
-        const pic2Id = pic2.getAttribute("id")!;
+        const tile2Source = tile2.src!;
+        const tile2Alt = tile2.alt!;
+        const tile2Id = tile2.id!;
    
-        pic1.setAttribute("src", pic2Source);
-        pic1.setAttribute("alt", pic2Alt);
-        pic1.setAttribute("id", pic2Id);
+        tile1.src = tile2Source;
+        tile1.alt = tile2Alt;
+        tile1.id = tile2Id;
   
-        pic2.setAttribute("src", pic1Source);
-        pic2.setAttribute("alt", pic1Alt);
-        pic2.setAttribute("id", pic1Id);
+        tile2.src = tile1Source;
+        tile2.alt = tile1Alt;
+        tile2.id = tile1Id;
         
-        if (isSolved()) {
-          let solved = document.createElement("div");
+        if (this.isSolved()) {
+          /*let solved = document.createElement("div");
           solved.id = "solved";
           
           const linkText = document.createTextNode("SOLVED :)");
           solved.appendChild(linkText);
-          riddle.appendChild(solved); 
+          riddle.appendChild(solved); */
         }
         
         break;
@@ -172,47 +184,55 @@ export class PuzzleComponent implements OnInit {
     }
   }
   
-  function resetOpacity() {
-    const pics = riddle.getElementsByTagName("img");
+  resetOpacity() {
   
-    for (let i = 0; i < pics.length; i++) {
-      if (pics[i].style.opacity == "0.6") {
-        pics[i].style.opacity = "1.0";
+    for (let i = 0; i < this.tiles.length; i++) {
+      if (this.tiles[i].style.opacity == "0.6") {
+        this.tiles[i].style.opacity = "1.0";
       }
     }
   }
   
-  function getNeighbourIdxs(currentIdx: number) {
+  getNeighbourIdxs(currentIdx: number) {
     const returnIdxs: number[] = [];
   
     // upperNeighbourIdx
-    if (isNeighbourIndexCol(currentIdx - 3)) {
+    if (this.isNeighbourIndexCol(currentIdx - 3)) {
       returnIdxs.push(currentIdx - 3);
     }
     // rightNeighbourIdx
-    if (isNeighbourIndexRow(currentIdx, currentIdx + 1)) {
+    if (this.isNeighbourIndexRow(currentIdx, currentIdx + 1)) {
       returnIdxs.push(currentIdx + 1);
     }
     // lowerNeighbourIdx
-    if (isNeighbourIndexCol(currentIdx + 3)) {
+    if (this.isNeighbourIndexCol(currentIdx + 3)) {
       returnIdxs.push(currentIdx + 3);
     }
     // leftNeighbourIdx
-    if (isNeighbourIndexRow(currentIdx, currentIdx - 1)) {
+    if (this.isNeighbourIndexRow(currentIdx, currentIdx - 1)) {
       returnIdxs.push(currentIdx - 1);
     }
     
     return returnIdxs;
   }
   
-  function isNeighbourIndexRow(currentIdx: number, checkIdx: number) {
+  isNeighbourIndexRow(currentIdx: number, checkIdx: number) {
     return (Math.max(-1, checkIdx) > -1) &&
       (Math.min(9, checkIdx) < 9) &&
       (Math.floor(currentIdx / 3) == Math.floor(checkIdx / 3));
   }
   
-  function isNeighbourIndexCol(checkIdx: number) {
+  isNeighbourIndexCol(checkIdx: number) {
     return (Math.max(-1, checkIdx) > -1) &&
       (Math.min(9, checkIdx) < 9);
+  }
+
+  convertString(id: string): string{
+    for(let i = 0; this.tiles.length; i++){
+      if(id == this.tiles[i].id){
+        let opacity = this.tiles[i].style.opacity;
+        return "opacity:"+opacity+";";
+      }
+    }
   }
 }
