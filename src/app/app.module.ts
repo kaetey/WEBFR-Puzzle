@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FaqComponent } from './faq/faq.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
+import { ProfileComponent } from './profile/profile.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatTableModule} from '@angular/material/table';
-import { ProfileComponent } from './profile/profile.component'; 
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatGridListModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
