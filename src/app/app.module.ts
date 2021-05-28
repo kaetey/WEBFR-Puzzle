@@ -20,7 +20,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list'; 
-import {MatTableModule} from '@angular/material/table'; 
+import {MatTableModule} from '@angular/material/table';
+import { ProfileComponent } from './profile/profile.component'; 
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatTableModule} from '@angular/material/table';
     SignupComponent,
     FaqComponent,
     HighscoreComponent,
-    PuzzleComponent
+    PuzzleComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
