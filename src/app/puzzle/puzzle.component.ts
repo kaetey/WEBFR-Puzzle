@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from "../login.service";
+
 
 interface Tile{
   id: string,
@@ -19,7 +21,9 @@ export class PuzzleComponent implements OnInit {
   puzzle = this.currUrl.charAt(this.currUrl.length-1);
   tiles:Tile[] = [];
 
-  constructor(private router: Router,) { }
+  constructor(
+    private router: Router, 
+    private loginService: LoginService,) { }
 
   ngOnInit(): void {
     //shuffle the parts

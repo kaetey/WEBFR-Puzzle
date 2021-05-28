@@ -16,11 +16,11 @@ app.use((req, res, next) => {
 
 app.post("/login", (req, res) => {
     const {email, password} = req.body;
-    console.log(email);
-    console.log(password);
+    //console.log(email);
+    //console.log(password);
     
     let credentials = db.login(email, password);
-    console.log(credentials);
+    //console.log(credentials);
     
     if(credentials != undefined){
         res.status(200).json({
@@ -35,5 +35,28 @@ app.post("/login", (req, res) => {
     }
 });
 
+app.post("/authentication", (req, res) => {
+    const {authorization} = req.headers;
+    const checkAuth = db.isAuthenticated(authorization);
+    console.log(checkAuth);
+
+    if(checkAuth == true){
+        res.status(200).json({
+            message: "User autorisiert",
+        });
+    }
+    else{
+        res.status(401).json({
+            message: "User nicht autorisiert",
+        });
+    }
+});
+
+app.get("/highscore", (req, res) => {
+    let list = db.getHighscores();
+    //console.log(list);
+
+    res.status(200).json(list);
+});
 
 module.exports = app;
