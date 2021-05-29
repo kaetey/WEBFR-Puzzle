@@ -52,6 +52,19 @@ app.post("/authentication", (req, res) => {
     }
 });
 
+app.post("/signup", (req, res) =>{
+    
+    let token = db.signup(req.body.email, req.body.password);
+    if(token != ""){
+        res.status(200).json({
+            message: "User successfully registered!",
+            token: token
+        });
+    }else{
+        res.status(400).json({});
+    }
+});
+
 app.get("/highscore", (req, res) => {
     let list = db.getHighscores();
     //console.log(list);
