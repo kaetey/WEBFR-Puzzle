@@ -10,6 +10,7 @@ import { FaqComponent } from './faq/faq.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EndgameDialogComponent } from './endgame-dialog/endgame-dialog.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatTableModule} from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { MatListModule } from '@angular/material/list';
     FaqComponent,
     HighscoreComponent,
     PuzzleComponent,
-    ProfileComponent
+    ProfileComponent,
+    EndgameDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { MatListModule } from '@angular/material/list';
     HttpClientModule,
     MatGridListModule,
     MatTableModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

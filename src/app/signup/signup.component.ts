@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor() { }
+  constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
   }
@@ -91,7 +91,8 @@ export class SignupComponent implements OnInit {
     if((form.value.email == "" && form.value.password == "") || this.errorEmail || this.errorPassword || this.errorUsername){
       alert("Registration is incomplete!");
     }else{
-    this.http.post<{ message: string, token: string }>('http://localhost:3000/register', form.value, this.httpOptions)
+    console.log(form.value);
+    this.http.post<{ message: string, token: string }>('http://localhost:3000/signup', form.value, this.httpOptions)
       .subscribe((responseData) => {
         console.log(responseData.message);
         console.log(responseData.token);

@@ -55,6 +55,7 @@ app.post("/authentication", (req, res) => {
 app.post("/signup", (req, res) =>{
     
     let token = db.signup(req.body.email, req.body.password);
+    console.log(token);
     if(token != ""){
         res.status(200).json({
             message: "User successfully registered!",
@@ -70,6 +71,30 @@ app.get("/highscore", (req, res) => {
     //console.log(list);
 
     res.status(200).json(list);
+});
+
+app.post("/highscore", (req, res) => {
+    const {highscore} = req.body;
+    const {authorization} = req.headers;
+    let user = db.getAuthUser(authorization).username;
+
+    
+    /*const {authorization} = req.headers;
+    const checkAuth = db.isAuthenticated(authorization);
+
+    if(checkAuth == true){
+        let cred = db.getAuthUser(authorization);
+        db.addHighscore(cred.username, highscore);
+        //console.log(highscore);
+        res.status(200).json({
+            message: "Highscore wurde erfolgreich gespeichert",
+        });
+    }
+    else{
+        res.status(401).json({
+            message: "Kein User eingeloggt",
+        });
+    }*/
 });
 
 module.exports = app;

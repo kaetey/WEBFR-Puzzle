@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from "../login.service";
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { EndgameDialogComponent } from '../endgame-dialog/endgame-dialog.component';
+import {HttpHeaders, HttpClient} from '@angular/common/http';
 
 
 interface Tile{
@@ -15,15 +18,18 @@ interface Tile{
   templateUrl: './puzzle.component.html',
   styleUrls: ['./puzzle.component.css']
 })
+
 export class PuzzleComponent implements OnInit {
   gameTitle = "FHTW PUZZLE GAME";
   currUrl = this.router.url;
   puzzle = this.currUrl.charAt(this.currUrl.length-1);
-  tiles:Tile[] = [];
+  tiles:Tile[] = [];  
 
   constructor(
     private router: Router, 
-    private loginService: LoginService,) { }
+    private loginService: LoginService,
+    public dialog: MatDialog,
+    private http: HttpClient, ) { }
 
   ngOnInit(): void {
     //shuffle the parts
@@ -181,6 +187,7 @@ export class PuzzleComponent implements OnInit {
           const linkText = document.createTextNode("SOLVED :)");
           solved.appendChild(linkText);
           riddle.appendChild(solved); */
+          this.endgameDialog();
         }
         
         break;
@@ -238,5 +245,30 @@ export class PuzzleComponent implements OnInit {
         return "opacity:"+opacity+";";
       }
     }
+  }
+
+  endgameDialog(){
+    const dialogConfig = new MatDialogConfig();
+
+    const seconds = 200; //demo
+    let gameScore = ((100-seconds)<0)?(100-seconds):0;
+    dialogConfig.data = {
+      time: seconds,
+      score: gameScore
+    }
+
+    this.http.post("http://localhost:3000/highscore", {highscore: gameScore}, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token") || "",
+      })
+    })
+    .subscribe((responseData) => { console.log(responseData); });
+
+    const dialogRef = this.dialog.open(EndgameDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
