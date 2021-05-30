@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from "./login.service";
+import {Router} from "@angular/router";
+import {HttpHeaders, HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +10,34 @@ import { LoginService } from "./login.service";
 })
 export class AppComponent {
   gameTitle = 'FHTW PUZZLE GAME';
-  loggedIn = false; 
-  logout = '<a href="/logout" mat-button>Logout</a>';
-  login = '<a href="/login" mat-button>Login</a>'+
-          '<a href="/signup" mat-button>Sign Up</a>';
+  loginStatus = false;
+  showMenu = true;
 
-  constructor(private loginService: LoginService,) {}
+  constructor(
+    private loginService: LoginService, 
+    private router: Router,
+    private http: HttpClient,) {}
   
   ngOnInit(): void {
-    let checkLogin = this.loginService.checkLogin();
-    console.log(checkLogin);
+    this.loginService.checkLogin().subscribe(
+      res => {  console.log(res); 
+                this.loginStatus = true;}, 
+      err => { console.log(err); });
+    if(this.router.url != "/")this.showMenu = false;
   }
 
+  logout(){
+    this.http.post("http://localhost:3000/logout", {},{
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token") || "",
+      })
+    })
+    .subscribe((responseData) => { 
+      console.log(responseData);
+      localStorage.removeItem("token");
+      this.router.navigate(["/"]);
+      this.router.navigate(['/']);
+    });
+  }
 }

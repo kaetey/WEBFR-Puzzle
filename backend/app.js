@@ -97,4 +97,22 @@ app.post("/highscore", (req, res) => {
     }*/
 });
 
+app.post("/logout", (req, res) => {
+    const {authorization} = req.headers;
+    const checkAuth = db.isAuthenticated(authorization);
+
+    if(checkAuth == true){
+        db.deleteToken(authorization);
+
+        res.status(202).json({
+            message: "User erfolgreich ausgeloggt",
+        });
+    }
+    else{
+        res.status(404).json({
+            message: "User konnte nicht ausgeloggt werden",
+        });
+    }
+});
+
 module.exports = app;

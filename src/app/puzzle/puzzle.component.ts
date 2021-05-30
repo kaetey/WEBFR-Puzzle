@@ -24,6 +24,7 @@ export class PuzzleComponent implements OnInit {
   currUrl = this.router.url;
   puzzle = this.currUrl.charAt(this.currUrl.length-1);
   tiles:Tile[] = [];  
+  showMenu = true;
 
   constructor(
     private router: Router, 
@@ -32,6 +33,10 @@ export class PuzzleComponent implements OnInit {
     private http: HttpClient, ) { }
 
   ngOnInit(): void {
+    this.loginService.checkLogin().subscribe(res => console.log(res), err => console.log(err));
+    if(this.router.url != "/")this.showMenu = false;
+    else this.showMenu = true;
+
     //shuffle the parts
     const puzzlePartsIdx = this.shufflePuzzleParts();
 
@@ -251,9 +256,10 @@ export class PuzzleComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     const seconds = 200; //demo
+    const time = "00:00:00";
     let gameScore = ((100-seconds)<0)?(100-seconds):0;
     dialogConfig.data = {
-      time: seconds,
+      time: time,
       score: gameScore
     }
 

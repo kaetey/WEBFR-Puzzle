@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {HttpHeaders, HttpClient} from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
-import { LoginService } from "../login.service";
 
 interface ILoginResponse{
   messagen: string;
@@ -18,15 +17,15 @@ export class LoginComponent implements OnInit {
   loginTitle:string = "Login für FHTW Puzzle Game";
   hide = true;
   httpOptions = { headers: new HttpHeaders({ "Content-Type" : "application/json" }) };
-  checkLogin;
+  showMenu = true;
 
   constructor(
     private http: HttpClient, 
-    private router: Router,
-    private loginService: LoginService,) { }
+    private router: Router,) { }
 
-  ngOnInit(): void {
-    this.checkLogin = this.loginService.checkLogin();
+  ngOnInit(): void { 
+    if(this.router.url != "/")this.showMenu = false;
+    else this.showMenu = true;
   }
 
   submit(loginData: NgForm): any {
@@ -37,7 +36,8 @@ export class LoginComponent implements OnInit {
     .subscribe((responseData: ILoginResponse) => { 
       console.log(responseData); 
       localStorage.setItem("token", responseData.token);
-      this.router.navigate(["/puzzle"]);
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/']);
     });
   }
 }

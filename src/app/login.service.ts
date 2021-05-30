@@ -13,20 +13,13 @@ export class LoginService {
 
   constructor(private http: HttpClient,) { }
 
-  checkLogin(): Message{
-    let check:Message;
+  checkLogin(){
 
-    this.http.post("http://localhost:3000/authentication", {},{
+    return this.http.post("http://localhost:3000/authentication", {},{
       headers: new HttpHeaders({
         "Content-Type": "application/json",
         "Authorization": localStorage.getItem("token") || "",
       })
-    })
-    .subscribe((responseData: Message) => { 
-      console.log(responseData.message);
-      check = responseData;
     });
-
-    return check;
   }
 }
