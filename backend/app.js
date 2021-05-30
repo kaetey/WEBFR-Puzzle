@@ -54,7 +54,7 @@ app.post("/authentication", (req, res) => {
 
 app.post("/signup", (req, res) =>{
     
-    let token = db.signup(req.body.email, req.body.password);
+    let token = db.signup(req.body.email, req.body.password, req.body.adress, req.body.city. req.body.postcode);
     console.log(token);
     if(token != ""){
         res.status(200).json({
@@ -64,6 +64,14 @@ app.post("/signup", (req, res) =>{
     }else{
         res.status(400).json({});
     }
+});
+
+app.get("/profile", (req, res) => {
+
+    const {authorization} = req.headers;
+    let user = db.getAuthUser(authorization);
+
+    res.status(200).json(user);
 });
 
 app.get("/highscore", (req, res) => {

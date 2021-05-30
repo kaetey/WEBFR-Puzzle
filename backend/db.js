@@ -25,7 +25,7 @@ var db = {
             return false;
         }
 
-        this.users.push({ username: username, password: passwordHash.generate(password)});
+        this.users.push({ username: username, password: passwordHash.generate(password), adress: adress, city: city, postcode: postcode});
         console.log(this.users);
         return true;
     },
