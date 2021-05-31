@@ -53,13 +53,13 @@ app.post("/authentication", (req, res) => {
 });
 
 app.post("/signup", (req, res) =>{
-    
-    let token = db.signup(req.body.email, req.body.password, req.body.adress, req.body.city. req.body.postcode);
-    console.log(token);
-    if(token != ""){
+    const {email, password, adress, city, postcode} = req.body;
+    let check = db.signup(email, password, adress, city, postcode);
+    if(this.check == true){
+        let user = db.login(email, password);
         res.status(200).json({
             message: "User successfully registered!",
-            token: token
+            user
         });
     }else{
         res.status(400).json({});
@@ -86,25 +86,17 @@ app.get("/highscore", (req, res) => {
 app.post("/highscore", (req, res) => {
     const {highscore} = req.body;
     const {authorization} = req.headers;
-    let user = db.getAuthUser(authorization).username;
-
-    
-    /*const {authorization} = req.headers;
-    const checkAuth = db.isAuthenticated(authorization);
-
-    if(checkAuth == true){
-        let cred = db.getAuthUser(authorization);
-        db.addHighscore(cred.username, highscore);
-        //console.log(highscore);
+    let user = db.getAuthUser(authorization);
+    if (user != undefined){
+        db.addHighscore(user.username, highscore);
         res.status(200).json({
             message: "Highscore wurde erfolgreich gespeichert",
         });
-    }
-    else{
+    }else{
         res.status(401).json({
             message: "Kein User eingeloggt",
         });
-    }*/
+    }
 });
 
 app.post("/logout", (req, res) => {

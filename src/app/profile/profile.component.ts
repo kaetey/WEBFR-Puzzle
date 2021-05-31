@@ -8,6 +8,10 @@ interface IProfileResponse {
   city: string;
   postcode: number;
 }
+interface IHighscores {
+  username: string;
+  score: number;
+}
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +20,7 @@ interface IProfileResponse {
 })
 export class ProfileComponent implements OnInit {
   profileTitle:string = "My Profile";
-  
+  data:IHighscores[] = [];
   profile: IProfileResponse = {username: "",score:  0, adress: "", city: "", postcode: 0};
   constructor(private http: HttpClient) { }
 
@@ -32,11 +36,20 @@ export class ProfileComponent implements OnInit {
       this.profile = responseData;
     });
     this.http.get("http://localhost:3000/highscore")
-    .subscribe((responseData) => {
-      console.log(responseData);
+    .subscribe((responseData: IHighscores[]) => {
+      //console.log(responseData);
       /*if(responseData.find(u => u.username === this.profile.username)){
         this.profile.score = u.score;
       };*/
+      this.data = responseData;
+      for(let i = 0; i < this.data.length; i ++){
+        if(this.data[i].username == this.profile.username){
+          this.profile.score = this.data[i].score;
+        }else{
+          this.profile.score = 0;
+        }
+      }
+      console.log(this.data);
     });
   }
 }

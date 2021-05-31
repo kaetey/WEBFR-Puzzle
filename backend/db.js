@@ -14,19 +14,19 @@ var db = {
     tokens: [],
     
     highscores: [ 
-        { username: "test@test.at", score: 1600 },
+        { username: "test@test.at", score: 20 },
         { username: "linus@kernel.org", score: 1900 },
         { username: "bill@microsoft.com", score: 400 }
     ],
 
-    signup: function(username, password) {
+    signup: function(username, password, adress, city, postcode) {
         let user = this.users.find(u => u.username === username);
         if (user !== undefined) {
             return false;
         }
 
         this.users.push({ username: username, password: passwordHash.generate(password), adress: adress, city: city, postcode: postcode});
-        console.log(this.users);
+        //console.log(this.users);
         return true;
     },
 
@@ -66,7 +66,10 @@ var db = {
     },
 
     addHighscore: function(username, score) {
-        this.highscores.push({ username: username, score: score });
+        index = this.highscores.findIndex(highscore => highscore.username === username && highscore.score < score);
+        console.log(index)
+        if(index != undefined) this.highscores[index].score = score;
+        else this.highscores.push({ username: username, score: score });
     }
 }
 

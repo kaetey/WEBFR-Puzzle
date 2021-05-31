@@ -25,7 +25,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
-import { MenuComponent } from './menu/menu.component'; 
+import { MenuComponent } from './menu/menu.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { MenuComponent } from './menu/menu.component';
     MatTableModule,
     MatListModule,
     MatDialogModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

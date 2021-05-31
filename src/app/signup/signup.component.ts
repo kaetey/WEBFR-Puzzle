@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm, NgModel, Validators, FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AppComponent} from "../app.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -8,9 +10,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
-  //hide = true;
-  //isLoading = false;
 
   hide1 = true;
   hide2 = true;
@@ -24,23 +23,13 @@ export class SignupComponent implements OnInit {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient,) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private app: AppComponent,) { }
 
   ngOnInit(): void {
   }
-  //emailFormControl = new FormControl('', [
-    //Validators.email,
-    //Validators.required
-  //]);
-
-  //passwordFormControl = new FormControl('', [
-    //Validators.required,
-    //Validators.minLength(8)
-  //]);
-  //confirmPasswordFormControl = new FormControl('', [
-    //Validators.required,
-    //Validators.minLength(8)
-  //]);
 
   validateEmail(email: NgModel){
     let validator = new FormControl(email.value, [Validators.required, Validators.email]);
@@ -80,11 +69,14 @@ export class SignupComponent implements OnInit {
     if((form.value.email == "" && form.value.password == "") || this.errorEmail || this.errorPassword){
       alert("Registration is incomplete!");
     }else{
-    console.log(form.value);
-    this.http.post<{ message: string, token: string }>('http://localhost:3000/signup', form.value, this.httpOptions)
+    //console.log(form.value);
+    this.http.post<{ message: string, user }>('http://localhost:3000/signup', form.value, this.httpOptions)
       .subscribe((responseData) => {
         console.log(responseData.message);
-        console.log(responseData.token);
+        console.log(responseData.user);
+        localStorage.setItem("token", responseData.user.token);
+        this.app.init();
+        this.router.navigateByUrl('/');
       });
     }
   }
