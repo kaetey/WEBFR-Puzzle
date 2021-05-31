@@ -17,7 +17,6 @@ export class SignupComponent implements OnInit {
 
   errorEmail = true;
   errorPassword = true;
-  errorUsername = true;
 
   signupTitle:string = "Register now";
 
@@ -56,16 +55,6 @@ export class SignupComponent implements OnInit {
     this.errorEmail = false;
   }
 
-  uniqueUsername(username: NgModel){
-    let Validator = new FormControl(username.value, [Validators.required]);
-    if(Validator.hasError('required')){
-      this.errorUsername = true;
-      return "Please enter a username!";
-    }
-    //check if username is unique
-    this.errorUsername = false;
-  }
-
   validatePassword(password: NgModel){
     let validator = new FormControl(password.value, [Validators.required]);
     if(validator.hasError('required')) {
@@ -88,7 +77,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    if((form.value.email == "" && form.value.password == "") || this.errorEmail || this.errorPassword || this.errorUsername){
+    if((form.value.email == "" && form.value.password == "") || this.errorEmail || this.errorPassword){
       alert("Registration is incomplete!");
     }else{
     console.log(form.value);
