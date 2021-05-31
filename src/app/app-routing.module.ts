@@ -7,6 +7,7 @@ import { FaqComponent } from './faq/faq.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent,},
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'highscore', component: HighscoreComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'puzzle', component: PuzzleComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
 ];
 
 @NgModule({

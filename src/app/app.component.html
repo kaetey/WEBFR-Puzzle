@@ -3,17 +3,17 @@
     <mat-toolbar color="primary">
       <span><img src="../assets/puzzle_logo.png" width="100px" alt="Puzzle"></span>
       <span class="example-spacer"></span>
-      <a href="/" mat-button>Game</a>
-      <a href="/highscore" mat-button>Highscore Board</a>
-      <a href="/faq" mat-button>FAQ</a>
-      <a href="/profile" mat-button *ngIf="loginStatus">My Profile</a>
-      <a href="/login" mat-button *ngIf="!loginStatus">Login</a>
-      <a href="/signup" mat-button *ngIf="!loginStatus">Sign Up</a>
+      <a [routerLink]="['/']" mat-button>Game</a>
+      <a [routerLink]="['/highscore']" mat-button>Highscore Board</a>
+      <a [routerLink]="['/faq']" mat-button>FAQ</a>
+      <a [routerLink]="['/profile']" mat-button *ngIf="loginStatus">My Profile</a>
+      <a [routerLink]="['/login']" mat-button *ngIf="!loginStatus">Login</a>
+      <a [routerLink]="['/signup']" mat-button *ngIf="!loginStatus">Sign Up</a>
       <a  mat-button *ngIf="loginStatus" (click)="logout()">Logout</a>
     </mat-toolbar>
   </nav>
 </header>
-<mat-card class="card" *ngIf="!showMenu">
+<mat-card class="card" *ngIf="showMenu">
   <mat-card-title>{{gameTitle}}</mat-card-title>
   <a href="/puzzle?puzzle=1" mat-raised-button type="button" id="puzzle1" color="accent">Puzzle 1</a>
   <a href="/puzzle?puzzle=2" mat-raised-button type="button" id="puzzle2" color="primary">Puzzle 2</a>

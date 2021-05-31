@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from "./login.service";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 import {HttpHeaders, HttpClient} from '@angular/common/http';
 
 @Component({
@@ -11,7 +11,7 @@ import {HttpHeaders, HttpClient} from '@angular/common/http';
 export class AppComponent {
   gameTitle = 'FHTW PUZZLE GAME';
   loginStatus = false;
-  showMenu = true;
+  showMenu = false;
 
   constructor(
     private loginService: LoginService, 
@@ -19,11 +19,17 @@ export class AppComponent {
     private http: HttpClient,) {}
   
   ngOnInit(): void {
+    this.init();
+  }
+
+  init(){
     this.loginService.checkLogin().subscribe(
       res => {  console.log(res); 
                 this.loginStatus = true;}, 
       err => { console.log(err); });
-    if(this.router.url != "/")this.showMenu = false;
+      let url = this.router.url;
+    if(url != "/highscore" && url != "/login" && url != "/signup" && url != "/faq" && url != "/profile")this.showMenu = true;
+    console.log(this.router.url);
   }
 
   logout(){
@@ -36,8 +42,8 @@ export class AppComponent {
     .subscribe((responseData) => { 
       console.log(responseData);
       localStorage.removeItem("token");
-      this.router.navigate(["/"]);
-      this.router.navigate(['/']);
+      this.loginStatus = false;
+      this.router.navigateByUrl('/');
     });
   }
 }

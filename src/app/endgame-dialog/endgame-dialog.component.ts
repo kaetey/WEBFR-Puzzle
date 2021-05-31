@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./endgame-dialog.component.css']
 })
 export class EndgameDialogComponent implements OnInit {
-  gameScore: string;
+  gameScore: number;
   gameTime: string;
 
   constructor(

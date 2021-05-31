@@ -24,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatTableModule} from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
-import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { MenuComponent } from './menu/menu.component'; 
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     PuzzleComponent,
     ProfileComponent,
     EndgameDialogComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

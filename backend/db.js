@@ -5,10 +5,10 @@ var randomToken = require('random-token');
 var db = {
     
     users: [
-        { username: "test@test.at", password: passwordHash.generate("12345678") },
-        { username: "linus@kernel.org", password: passwordHash.generate("abcdefg") },
-        { username: "steve@apple.com", password: passwordHash.generate("123456") },
-        { username: "bill@microsoft.com", password: passwordHash.generate("987654") }
+        { username: "test@test.at", password: passwordHash.generate("12345678"), adress: "teststreet 1", city: "test", postcode: 1},
+        { username: "linus@kernel.org", password: passwordHash.generate("abcdefg"), adress: "linus 2", city: "test", postcode: 2},
+        { username: "steve@apple.com", password: passwordHash.generate("123456"), adress: "steve", city: "test", postcode: 3 },
+        { username: "bill@microsoft.com", password: passwordHash.generate("987654"), adress: "bill", city: "micro", postcode: 4 }
     ],
     
     tokens: [],
@@ -55,7 +55,11 @@ var db = {
 
     getAuthUser: function(authToken) {
         return this.tokens.find(auth => auth.token == authToken);
-    },    
+    },
+
+    getUser: function (userToken) {
+        return this.users.find(u => u.username === userToken.username);
+    },
 
     getHighscores: function() {
         return this.highscores.sort(function(a,b) { return b.score - a.score });
@@ -65,6 +69,5 @@ var db = {
         this.highscores.push({ username: username, score: score });
     }
 }
-
 
 module.exports = db;

@@ -1,28 +1,25 @@
 <mat-card class="card">
     <mat-card-title>{{profileTitle}}</mat-card-title>
-    <table mat-table [dataSource]="dataSource">
-        <ng-container matColumDef="username">
-            <th mat-header-cell *matHeaderCellDef> Username </th>
-            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    <table mat-table class="mat-elevation-z8">
+        <ng-container matColumnDef="username">
+            <th mat-header-cell> Username </th>
+            <td mat-cell> {{profile.username}} </td>
         </ng-container>
-        <ng-container matColumDef="score">
-            <th mat-header-cell *matHeaderCellDef> Highscore </th>
-            <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+        <ng-container matColumnDef="score">
+            <th mat-header-cell> Highscore </th>
+            <td mat-cell> {{profile.score}} </td>
         </ng-container>
-        <ng-container matColumDef="adress">
-            <th mat-header-cell *matHeaderCellDef> Adress </th>
-            <td mat-cell *matCellDef="let element"> {{element.adress}} </td>
+        <ng-container matColumnDef="adress">
+            <th mat-header-cell> Adress </th>
+            <td mat-cell> {{profile.adress}} </td>
         </ng-container>
-        <ng-container matColumDef="city">
-            <th mat-header-cell *matHeaderCellDef> City </th>
-            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+        <ng-container matColumnDef="city">
+            <th mat-header-cell> City </th>
+            <td mat-cell> {{profile.city}} </td>
         </ng-container>
-        <ng-container matColumDef="postcode">
-            <th mat-header-cell *matHeaderCellDef> Postcode </th>
-            <td mat-cell *matCellDef="let element"> {{element.postcode}} </td>
+        <ng-container matColumnDef="postcode">
+            <th mat-header-cell> Postcode </th>
+            <td mat-cell> {{profile.postcode}} </td>
         </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </mat-card>

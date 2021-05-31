@@ -66,10 +66,12 @@ app.post("/signup", (req, res) =>{
     }
 });
 
-app.get("/profile", (req, res) => {
+app.post("/profile", (req, res) => {
 
     const {authorization} = req.headers;
-    let user = db.getAuthUser(authorization);
+    let userToken = db.getAuthUser(authorization);
+    let user = db.getUser(userToken);
+    console.log(user);
 
     res.status(200).json(user);
 });
