@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'faq', component: FaqComponent },
   { path: 'puzzle', component: PuzzleComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: '', redirectTo: 'menu', pathMatch: 'full' },
+  { path: 'menu', component: MenuComponent }
 ];
 
 @NgModule({
