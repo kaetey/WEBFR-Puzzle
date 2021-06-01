@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient} from '@angular/common/http';
 
+
 interface IProfileResponse {
   username: string;
   score: number;
@@ -21,7 +22,7 @@ interface IHighscores {
 export class ProfileComponent implements OnInit {
   profileTitle:string = "My Profile";
   data:IHighscores[] = [];
-  profile: IProfileResponse = {username: "",score:  0, adress: "", city: "", postcode: 0};
+  profile: IProfileResponse = {username: "", score:  0, adress: "", city: "", postcode: 0};
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -37,10 +38,6 @@ export class ProfileComponent implements OnInit {
     });
     this.http.get("http://localhost:3000/highscore")
     .subscribe((responseData: IHighscores[]) => {
-      //console.log(responseData);
-      /*if(responseData.find(u => u.username === this.profile.username)){
-        this.profile.score = u.score;
-      };*/
       this.data = responseData;
       for(let i = 0; i < this.data.length; i ++){
         if(this.data[i].username == this.profile.username){
@@ -49,7 +46,7 @@ export class ProfileComponent implements OnInit {
           this.profile.score = 0;
         }
       }
-      console.log(this.data);
+      console.log(this.profile.score);
     });
   }
 }

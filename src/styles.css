@@ -8,5 +8,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     float: right;
 }
 body {
-    background-color: rgb(140, 153, 194);
+    background-image: url(./assets/background_imgs/background6.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
 }

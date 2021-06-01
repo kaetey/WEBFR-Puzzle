@@ -1,21 +1,16 @@
 <header>
   <nav>
     <mat-toolbar color="primary">
-      <span><img src="../assets/puzzle_logo.png" width="70px" alt="Puzzle"></span>
+      <span><img src="../assets/puzzle_logo.png" style="margin-top:10px;" width="70px" alt="Puzzle"></span>
       <span class="example-spacer"></span>
-      <a [routerLink]="['/']" mat-button>Game</a>
-      <a [routerLink]="['/highscore']" mat-button>Highscore Board</a>
-      <a [routerLink]="['/faq']" mat-button>FAQ</a>
-      <a [routerLink]="['/profile']" mat-button *ngIf="loginStatus">My Profile</a>
-      <a [routerLink]="['/login']" mat-button *ngIf="!loginStatus">Login</a>
-      <a [routerLink]="['/signup']" mat-button *ngIf="!loginStatus">Sign Up</a>
-      <a  mat-button *ngIf="loginStatus" (click)="logout()">Logout</a>
+      <a [routerLink]="['/']" mat-button><mat-icon mat-list-icon>extension</mat-icon></a>
+      <a [routerLink]="['/highscore']" mat-button><mat-icon mat-list-icon>format_list_numbered_rtl</mat-icon></a>
+      <a [routerLink]="['/faq']" mat-button><mat-icon mat-list-icon>quiz</mat-icon></a>
+      <a [routerLink]="['/profile']" mat-button *ngIf="loginStatus"><mat-icon mat-list-icon>account_circle</mat-icon></a>
+      <a [routerLink]="['/login']" mat-raised-button *ngIf="!loginStatus" style="margin-right:10px">Login</a>
+      <a [routerLink]="['/signup']"mat-raised-button color="accent" *ngIf="!loginStatus">Sign Up</a>
+      <a  mat-button *ngIf="loginStatus" (click)="logout()"><mat-icon mat-list-icon>logout</mat-icon></a>
     </mat-toolbar>
   </nav>
 </header>
-<!--<mat-card class="card" *ngIf="showMenu">
-  <mat-card-title>{{gameTitle}}</mat-card-title>
-  <a href="/puzzle?puzzle=1" mat-raised-button type="button" id="puzzle1" color="accent">Puzzle 1</a>
-  <a href="/puzzle?puzzle=2" mat-raised-button type="button" id="puzzle2" color="primary">Puzzle 2</a>
-</mat-card>-->
 <router-outlet></router-outlet>

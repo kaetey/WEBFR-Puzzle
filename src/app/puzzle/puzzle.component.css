@@ -1,6 +1,7 @@
 mat-grid-list{
     width: 500px;
     margin: auto;
+    padding: 0;
 }
 
 mat-grid-tile{
@@ -11,3 +12,4 @@ mat-grid-tile{
 section{
     text-align: center;
 }
+

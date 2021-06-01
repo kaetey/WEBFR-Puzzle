@@ -3,15 +3,12 @@
     <form #loginData="ngForm" ngForm (ngSubmit)="submit(loginData)">
         <div>
             <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput required email="true" type="email" name="email" #email="ngModel" ngModel>
+                <mat-label>Email</mat-label>
+                <input matInput required email="true" type="email" name="email" #email="ngModel" ngModel>
+                <div *ngIf="email.touched">
+                    <mat-error>{{validateEmail(email)}}</mat-error>
+                </div>
             </mat-form-field>
-            <div *ngIf="email.errors?.required && (email.dirty || email.touched)">
-                Email is required!
-            </div>
-            <div *ngIf="email.errors?.email && (email.dirty || email.touched)">
-                Email is in the wrong format!
-            </div>
         </div>
         <div>
             <mat-form-field appearance="fill">
@@ -20,13 +17,13 @@
                 <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
+                <div *ngIf="password.touched">
+                    <mat-error>{{validatePassword(password)}}</mat-error>
+                </div>
             </mat-form-field>
         </div>
-        <div *ngIf="password?.touched && password?.invalid">
-            Password is required!
-        </div>
         <div>
-            <button mat-flat-button color="primary">Login</button>
+            <button mat-flat-button type="submit" color="primary">Login</button>
         </div>
     </form>
 </mat-card>

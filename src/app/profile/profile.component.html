@@ -1,25 +1,34 @@
 <mat-card class="card">
     <mat-card-title>{{profileTitle}}</mat-card-title>
-    <table mat-table class="mat-elevation-z8">
-        <ng-container matColumnDef="username">
-            <th mat-header-cell> Username </th>
-            <td mat-cell> {{profile.username}} </td>
-        </ng-container>
-        <ng-container matColumnDef="score">
-            <th mat-header-cell> Highscore </th>
-            <td mat-cell> {{profile.score}} </td>
-        </ng-container>
-        <ng-container matColumnDef="adress">
-            <th mat-header-cell> Adress </th>
-            <td mat-cell> {{profile.adress}} </td>
-        </ng-container>
-        <ng-container matColumnDef="city">
-            <th mat-header-cell> City </th>
-            <td mat-cell> {{profile.city}} </td>
-        </ng-container>
-        <ng-container matColumnDef="postcode">
-            <th mat-header-cell> Postcode </th>
-            <td mat-cell> {{profile.postcode}} </td>
-        </ng-container>
-    </table>
+    <mat-list>
+        <mat-list-item>
+            <mat-icon mat-list-icon>person</mat-icon>
+            <div mat-line>Username</div>
+            <div mat-line> {{profile.username}} </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>sports_score</mat-icon>
+        <div mat-line>Highscore</div>
+        <div mat-line> {{profile.score}} </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>home</mat-icon>
+        <div mat-line>Adress</div>
+        <div mat-line> {{profile.adress}} </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>place</mat-icon>
+        <div mat-line>City</div>
+        <div mat-line> {{profile.city}} </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <mat-icon mat-list-icon>local_post_office</mat-icon>
+        <div mat-line>Postcode</div>
+        <div mat-line> {{profile.postcode}} </div>
+    </mat-list-item>
+    </mat-list>
 </mat-card>

@@ -12,6 +12,7 @@ interface IHighscoreResponse {
   styleUrls: ['./highscore.component.css']
 })
 export class HighscoreComponent implements OnInit {
+  boardTitle: string = "FHTW Puzzle Highscore Board"
   displayedColumns: string[] = ["username", "score"];
   dataSource:IHighscoreResponse[] = [];
 

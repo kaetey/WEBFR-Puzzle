@@ -199,12 +199,6 @@ export class PuzzleComponent implements OnInit {
         tile2.id = tile1Id;
         
         if (this.isSolved()) {
-          /*let solved = document.createElement("div");
-          solved.id = "solved";
-          
-          const linkText = document.createTextNode("SOLVED :)");
-          solved.appendChild(linkText);
-          riddle.appendChild(solved); */
           this.endgameDialog();
           clearInterval(this.timerID);
         }

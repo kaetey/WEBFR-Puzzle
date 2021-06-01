@@ -27,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MenuComponent } from './menu/menu.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTableModule,
     MatListModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

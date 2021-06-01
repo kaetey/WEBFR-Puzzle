@@ -24,13 +24,13 @@ app.post("/login", (req, res) => {
     
     if(credentials != undefined){
         res.status(200).json({
-            message: "Willkommen zurück "+email,
+            message: "Welcome back "+email,
             token: credentials.token
         });
     }
     else{
         res.status(404).json({
-            error: "Der Username oder das Passwort ist falsch!"
+            error: "User or password is wrong!"
         });
     }
 });
@@ -42,12 +42,12 @@ app.post("/authentication", (req, res) => {
 
     if(checkAuth == true){
         res.status(200).json({
-            message: "User autorisiert",
+            message: "User autorized",
         });
     }
     else{
         res.status(401).json({
-            message: "User nicht autorisiert",
+            message: "User not autorized",
         });
     }
 });
@@ -55,14 +55,16 @@ app.post("/authentication", (req, res) => {
 app.post("/signup", (req, res) =>{
     const {email, password, adress, city, postcode} = req.body;
     let check = db.signup(email, password, adress, city, postcode);
-    if(this.check == true){
+    if(check == true){
         let user = db.login(email, password);
         res.status(200).json({
             message: "User successfully registered!",
             user
         });
     }else{
-        res.status(400).json({});
+        res.status(400).json({
+            error: "User already exists!",
+        });
     }
 });
 
@@ -90,11 +92,11 @@ app.post("/highscore", (req, res) => {
     if (user != undefined){
         db.addHighscore(user.username, highscore);
         res.status(200).json({
-            message: "Highscore wurde erfolgreich gespeichert",
+            message: "Highscore was successfully saved!",
         });
     }else{
         res.status(401).json({
-            message: "Kein User eingeloggt",
+            message: "No user is logged in!",
         });
     }
 });
@@ -107,12 +109,12 @@ app.post("/logout", (req, res) => {
         db.deleteToken(authorization);
 
         res.status(202).json({
-            message: "User erfolgreich ausgeloggt",
+            message: "User successfully logged out!",
         });
     }
     else{
         res.status(404).json({
-            message: "User konnte nicht ausgeloggt werden",
+            message: "User couldn't log out!",
         });
     }
 });

@@ -3,6 +3,7 @@ import { FormControl, NgForm, NgModel, Validators, FormsModule } from '@angular/
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppComponent} from "../app.component";
 import {Router} from "@angular/router";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private app: AppComponent,) { }
+    private app: AppComponent,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -53,6 +55,7 @@ export class SignupComponent implements OnInit {
     if(password.errors != null){
       if(password.errors.minlength.actuallength < 8){
         this.errorPassword = true;
+        return "Password not long enough!";
       }
     }
     this.errorPassword= false;
@@ -77,7 +80,15 @@ export class SignupComponent implements OnInit {
         localStorage.setItem("token", responseData.user.token);
         this.app.init();
         this.router.navigateByUrl('/');
-      });
+        },
+        (error) => {
+          this.alertUser(error);
+        }
+      );
     }
+  }
+  alertUser(error){
+    console.log(error);
+    this.snackBar.open(error.error.error, "Close");
   }
 }

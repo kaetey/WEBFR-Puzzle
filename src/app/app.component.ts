@@ -27,9 +27,6 @@ export class AppComponent {
       res => {  console.log(res); 
                 this.loginStatus = true;}, 
       err => { console.log(err); });
-      let url = this.router.url;
-    if(url != "/highscore" && url != "/login" && url != "/signup" && url != "/faq" && url != "/profile")this.showMenu = true;
-    console.log(this.router.url);
   }
 
   logout(){
