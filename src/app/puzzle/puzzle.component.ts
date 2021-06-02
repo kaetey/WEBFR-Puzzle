@@ -250,14 +250,14 @@ export class PuzzleComponent implements OnInit {
       (Math.min(9, checkIdx) < 9);
   }
 
-  convertString(id: string): string{
+  /*convertString(id: string): string{
     for(let i = 0; this.tiles.length; i++){
       if(id == this.tiles[i].id){
         let opacity = this.tiles[i].style.opacity;
         return "opacity:"+opacity+";";
       }
     }
-  }
+  }*/
 
   updateTimer(){
 
