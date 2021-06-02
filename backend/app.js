@@ -108,7 +108,7 @@ app.post("/logout", (req, res) => {
     if(checkAuth == true){
         db.deleteToken(authorization);
 
-        res.status(202).json({
+        res.status(200).json({
             message: "User successfully logged out!",
         });
     }
